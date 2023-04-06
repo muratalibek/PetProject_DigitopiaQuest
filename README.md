@@ -1,6 +1,6 @@
-<br/>
+
 # **Digitopia Quest**
-<br/>
+
 
 This project represents the culminating endeavor of the course at **[iTransition Software Company](https://www.itransition.com)**.
 
