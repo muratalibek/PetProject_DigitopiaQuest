@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DigitopiaQuest.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Movie Page</h1>
+
+<p>
+    <a asp-action="Create">New Movie</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameOfMovie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgeOfRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImdbRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GenreOfMovie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionOfMovie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDateOfMovie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageOfMovie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RatingOfMovie)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOfMovie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgeOfRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImdbRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreOfMovie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionOfMovie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDateOfMovie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageOfMovie)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatingOfMovie)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete selected movie?')">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
