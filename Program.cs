@@ -1,3 +1,5 @@
+using DigitopiaQuest.Data;
+
 namespace DigitopiaQuest
 {
     public class Program
@@ -8,6 +10,7 @@ namespace DigitopiaQuest
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<DataContext>();
 
             var app = builder.Build();
 

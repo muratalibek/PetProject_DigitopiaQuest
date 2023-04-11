@@ -11,7 +11,7 @@ Front: TypeScript/JavaScript, React, Node.js, MySQL/PostgreSQL/MongoDB, Bootstra
 
 
 
->The development technologies for this project include both frontend and backend components. The backend requires .NET Core 7, while the frontend will utilize Bootstrap and Blazor. The database will be built using MSSQL.
+>The development technologies for this project include both frontend and backend components. The backend requires .NET 7, while the frontend will utilize Bootstrap and Blazor. The database will be built using MSSQL.
 <p>&nbsp;</p>
 
 2. Quotation from the assignment:
