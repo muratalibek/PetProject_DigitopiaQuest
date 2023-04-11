@@ -70,5 +70,5 @@ Front: TypeScript/JavaScript, React, Node.js, MySQL/PostgreSQL/MongoDB, Bootstra
 * Establish server connection and generate db. :white_check_mark:
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Book model. :white_check_mark:
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Movie model. :white_check_mark:
-* Create, Read, Update, and Delete (CRUD) controller and View Pages for the Game model.
+* Create, Read, Update, and Delete (CRUD) controller and View Pages for the Game model. :white_check_mark:
 <p>&nbsp;</p>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DigitopiaQuest.Models.Game>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Games Page</h1>
+
+<p>
+    <a asp-action="Create">New Game</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameOfGame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescriptionOfGame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserScore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDateOfGame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GenreOfGame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Developer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DevCompany)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOfGame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionOfGame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDateOfGame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenreOfGame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DevCompany)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete selected book?')">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
