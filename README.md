@@ -61,3 +61,11 @@ Front: TypeScript/JavaScript, React, Node.js, MySQL/PostgreSQL/MongoDB, Bootstra
 9. Quotation from the assignment:
 *"All images are stored in the cloud, upload control should support drag-n-drop."*
 >As per the project requirements, all images related to reviews on the web portal should be stored in the cloud. Additionally, the upload control for adding images should support drag-n-drop functionality. This means that users will be able to easily add images to their reviews by simply dragging and dropping them into the designated area. The use of a cloud-based storage solution ensures that the images will be accessible from anywhere and will not take up storage space on the user's device. Overall, this makes it easier and more convenient for users to add images to their reviews.
+<p>&nbsp;</p>
+
+
+### **ToDo List for project:**
+* Generate the model classes. :white_check_mark:
+* Generate the migration. :white_check_mark:
+* Establish server connection and generate db. :white_check_mark:
+<p>&nbsp;</p>
