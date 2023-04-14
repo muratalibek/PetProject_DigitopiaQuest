@@ -12,10 +12,11 @@ namespace DigitopiaQuest.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=(LocalDb)\\PetProjectsDB;Database=DigitopiaQuest;Integrated Security=True;TrustServerCertificate=true;");
-        } 
+            optionsBuilder.UseSqlServer("Data Source=sql5063.site4now.net;Initial Catalog=db_a97950_digitopiaquest;Persist Security Info=True;User ID=db_a97950_digitopiaquest_admin;Password=Kokshe2020;Trust Server Certificate=True");
+        }
         //Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;
-
+        //
+        //Server=(LocalDb)\\PetProjectsDB;Database=DigitopiaQuest;Integrated Security=True;TrustServerCertificate=true;
         protected override void OnModelCreating(ModelBuilder optionsBuilder)
         {
             optionsBuilder.Entity<List<string>>()
