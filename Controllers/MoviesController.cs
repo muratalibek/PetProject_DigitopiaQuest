@@ -56,10 +56,20 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NameOfMovie,AgeOfRating,ImdbRating,GenreOfMovie,DescriptionOfMovie,Director,ReleaseDateOfMovie,TimeDuration,ImageOfMovie,RatingOfMovie")] Movie movie)
+        public async Task<IActionResult> Create(IFormFile imageFile, [Bind("Id,NameOfMovie,AgeOfRating,ImdbRating,GenreOfMovie,DescriptionOfMovie,Director,ReleaseDateOfMovie,TimeDuration,ImageOfMovie,RatingOfMovie")] Movie movie)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    byte[] imageData;
+
+                    using (var binaryReader = new BinaryReader(imageFile.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)imageFile.Length);
+                    }
+                    movie.ImageOfMovie = imageData;
+                }
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

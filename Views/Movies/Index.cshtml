@@ -73,13 +73,16 @@
                 @Html.DisplayFor(modelItem => item.TimeDuration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageOfMovie)
+                <img src="data:image/jpg;base64,@(item.ImageOfMovie?.Length > 0 ? Convert.ToBase64String(item.ImageOfMovie) : "")" alt="Movie Image" style="width: 100px; height: 70px;" />
             </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.ImageOfMovie)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.RatingOfMovie)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete selected movie?')">Delete</a>
             </td>

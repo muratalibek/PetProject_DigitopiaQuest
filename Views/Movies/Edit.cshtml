@@ -55,7 +55,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="ImageOfMovie" class="control-label"></label>
-                <input asp-for="ImageOfMovie" class="form-control" />
+                @*<input asp-for="ImageOfMovie" class="form-control" type="file" />*@
+                <input asp-for="ImageOfMovie" name="imageFile" id="imageFile" class="form-control" type="file" />
                 <span asp-validation-for="ImageOfMovie" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -77,3 +78,26 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script>
+    // Fetch API
+    async function AJAXSubmit(oFormElement) { // This line declares an asynchronous function named "AJAXSubmit" that takes one argument, "oFormElement".
+        var resultElement = oFormElement.elements.namedItem("result");//This line creates a variable named "resultElement" and sets it to the element with the name "result" within the "oFormElement" form.
+        const formData = new FormData(oFormElement);//This line creates a new FormData object named "formData" that contains the values of all the form elements within the "oFormElement" form.
+
+        try {// This line begins a try-catch block. The code inside the try block will be executed, and if an error is thrown, the code inside the catch block will be executed.
+            const response = await fetch(oFormElement.action, {
+                method: 'POST',
+                body: formData
+            });// This line makes an asynchronous HTTP POST request to the URL specified by the "action" attribute of the "oFormElement" form. The request includes the "formData" as the request body.
+
+            if (response.ok) {
+                window.location.href = '/';
+            }//This line checks if the response received from the server has a status code indicating success (i.e., 200-299). If it does, the browser is redirected to the root URL ('/').
+
+            resultElement.value = 'Result: ' + response.status + ' ' +
+                response.statusText;// This line sets the "value" property of the "resultElement" form element to a string containing the HTTP status code and status message of the response.
+        } catch (error) {
+            console.error('Error:', error);//This line catches any errors thrown by the code in the try block and logs them to the console using console.error().
+        }
+    }
+</script>

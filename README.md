@@ -67,11 +67,11 @@ Front: TypeScript/JavaScript, React, Node.js, MySQL/PostgreSQL/MongoDB, Bootstra
 ### **ToDo List for project:**
 * Generate the model classes. :white_check_mark:
 * Generate the migration. :white_check_mark:
-* Establish server connection and generate db. :white_check_mark:
+* Establish server connection and generate db. :white_check_mark:АВЫЧЫВ
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Book model. :white_check_mark:
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Movie model. :white_check_mark:
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Game model. :white_check_mark:
 * Deployment configuration with **[SmarterASP.NET](https://www.smarterasp.net/)** . :white_check_mark:
 <p>&nbsp;</p>
 
-**[SmarterASP.NET](muratalibek-001-site1.ctempurl.com)**
+Link: **[LinkOfProject](muratalibek-001-site1.ctempurl.com)**
