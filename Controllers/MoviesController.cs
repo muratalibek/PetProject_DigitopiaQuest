@@ -60,7 +60,7 @@ namespace DigitopiaQuest.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (imageFile != null && imageFile.Length > 0)
+                if (imageFile != null && imageFile.Length > 0)// Explain!
                 {
                     byte[] imageData;
 
@@ -98,17 +98,26 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameOfMovie,AgeOfRating,ImdbRating,GenreOfMovie,DescriptionOfMovie,Director,ReleaseDateOfMovie,TimeDuration,ImageOfMovie,RatingOfMovie")] Movie movie)
+        public async Task<IActionResult> Edit(int id, IFormFile imageEdit, [Bind("Id,NameOfMovie,AgeOfRating,ImdbRating,GenreOfMovie,DescriptionOfMovie,Director,ReleaseDateOfMovie,TimeDuration,ImageOfMovie,RatingOfMovie")] Movie movie)
         {
             if (id != movie.Id)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (imageEdit != null && imageEdit.Length > 0)
+                    {
+                        byte[] imageData;
+
+                        using (var binaryReader = new BinaryReader(imageEdit.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)imageEdit.Length);
+                        }
+                        movie.ImageOfMovie = imageData;
+                    }
                     _context.Update(movie);
                     await _context.SaveChangesAsync();
                 }

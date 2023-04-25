@@ -63,7 +63,7 @@
             @Html.DisplayNameFor(model => model.ImageOfMovie)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageOfMovie)
+            <img src="data:image/jpeg;base64,@(Model.ImageOfMovie?.Length > 0 ? Convert.ToBase64String(Model.ImageOfMovie) : "")" alt="Movie Image" style="width: 100px; height: 70px;" />
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.RatingOfMovie)

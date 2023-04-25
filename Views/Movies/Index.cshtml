@@ -75,9 +75,6 @@
             <td>
                 <img src="data:image/jpg;base64,@(item.ImageOfMovie?.Length > 0 ? Convert.ToBase64String(item.ImageOfMovie) : "")" alt="Movie Image" style="width: 100px; height: 70px;" />
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.ImageOfMovie)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.RatingOfMovie)
             </td>
