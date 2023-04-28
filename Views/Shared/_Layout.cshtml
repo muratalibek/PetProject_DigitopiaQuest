@@ -35,6 +35,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Games" asp-action="Index">Games Page</a>
                         </li>
                     </ul>
+                    @*@await Html.PartialAsync("_LoginPartial")*@
+                    @{
+                        await Html.RenderPartialAsync("_LoginPartial");
+                    }
                 </div>
             </div>
         </nav>
