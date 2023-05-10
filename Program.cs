@@ -12,8 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
-
-
+using Microsoft.AspNetCore.Authorization;
+using DigitopiaQuest.Core;
 
 namespace DigitopiaQuest
 {
@@ -32,16 +32,23 @@ namespace DigitopiaQuest
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<DigitopiaQuestUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<DigitopiaQuestContext>();
-            builder.Services.AddScoped<UserManager<DigitopiaQuestUser>>();
-
             builder.Services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+            builder.Services.AddDefaultIdentity<DigitopiaQuestUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>() //for roles adding
+                .AddEntityFrameworkStores<DigitopiaQuestContext>();
+            //builder.Services.AddScoped<UserManager<DigitopiaQuestUser>>();
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+
+            #region Authorization
+
+            AddAuthorizationPolicies(builder.Services);
+
+            #endregion
 
             var app = builder.Build();
 
@@ -67,6 +74,16 @@ namespace DigitopiaQuest
             app.MapRazorPages();
 
             app.Run();
+
+            void AddAuthorizationPolicies(IServiceCollection services)
+            {
+                services.AddAuthorization(options =>
+                {
+                    options.AddPolicy(Constants.Roles.Administrator, policy => policy.RequireRole(Constants.Roles.Administrator));
+                    options.AddPolicy(Constants.Roles.Manager, policy => policy.RequireRole(Constants.Roles.Manager));
+                    //options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User", "Manager", "Administrator"));
+                });
+            }   
         }
     }
 }

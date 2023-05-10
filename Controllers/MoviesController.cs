@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DigitopiaQuest.Data;
 using DigitopiaQuest.Models;
+using Microsoft.AspNetCore.Authorization;
+using DigitopiaQuest.Core;
 
 namespace DigitopiaQuest.Controllers
 {
@@ -46,6 +48,8 @@ namespace DigitopiaQuest.Controllers
         }
 
         // GET: Movies/Create
+        //[Authorize(Policy = "RequireAdmin")]
+        [Authorize(Roles = $"{Constants.Roles.Manager}")]
         public IActionResult Create()
         {
             return View();
@@ -78,6 +82,8 @@ namespace DigitopiaQuest.Controllers
         }
 
         // GET: Movies/Edit/5
+        //[Authorize(Policy = "RequireManager")]
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Movies == null)
@@ -98,6 +104,7 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> Edit(int id, IFormFile imageEdit, [Bind("Id,NameOfMovie,AgeOfRating,ImdbRating,GenreOfMovie,DescriptionOfMovie,Director,ReleaseDateOfMovie,TimeDuration,ImageOfMovie,RatingOfMovie")] Movie movie)
         {
             if (id != movie.Id)
