@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using DigitopiaQuest.Core;
+using DigitopiaQuest.Core.Repositories;
 
 namespace DigitopiaQuest
 {
@@ -26,6 +27,9 @@ namespace DigitopiaQuest
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<UserManager<DigitopiaQuestUser>>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
             // Add services to the container.
             builder.Services.AddDbContext<DigitopiaQuestContext>(options =>
@@ -83,7 +87,7 @@ namespace DigitopiaQuest
                     options.AddPolicy(Constants.Roles.Manager, policy => policy.RequireRole(Constants.Roles.Manager));
                     //options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User", "Manager", "Administrator"));
                 });
-            }   
+            } 
         }
     }
 }

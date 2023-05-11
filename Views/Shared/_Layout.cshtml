@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using DigitopiaQuest.Areas.Identity.Data
+
+@inject SignInManager<DigitopiaQuestUser> SignInManager
+@inject UserManager<DigitopiaQuestUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />

@@ -114,7 +114,7 @@ namespace DigitopiaQuest.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 //**************************************************
-                var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
+                var user = await _signInManager.UserManager.FindByNameAsync(Input.Email);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");

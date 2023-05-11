@@ -15,5 +15,7 @@ namespace DigitopiaQuest.Models
         public DateTime RelieseDateOfBook { get; set; }
         [DisplayName("Book Rating")]
         public double RatingOfBook { get; set; }
+        [DisplayName("Image")]
+        public byte[]? ImageOfBook { get; set; }
     }
 }

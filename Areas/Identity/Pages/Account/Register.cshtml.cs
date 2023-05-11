@@ -71,6 +71,14 @@ namespace DigitopiaQuest.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [StringLength(255, ErrorMessage = "The first name should have a maximum of 255 characters.")]
+            [Display(Name = "Firstname")]
+            public string FirstNameOfUser { get; set; }
+            [Required]
+            [StringLength(255, ErrorMessage = "The last name should have a maximum of 255 characters.")]
+            [Display(Name = "Lastname")]
+            public string LastNameOfUser { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -114,6 +122,9 @@ namespace DigitopiaQuest.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                user.FirstNameOfUser = Input.FirstNameOfUser;
+                user.LastNameOfUser = Input.LastNameOfUser;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
