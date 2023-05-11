@@ -7,5 +7,6 @@ namespace DigitopiaQuest.Core.Repositories
     {
         ICollection<DigitopiaQuestUser> GetUsers();
         DigitopiaQuestUser GetUser(string id);
+        DigitopiaQuestUser UpdateUser(DigitopiaQuestUser user);
     }
 }

@@ -47,7 +47,59 @@ namespace DigitopiaQuest.Controllers
         [HttpPost]
         public async Task<IActionResult> OnPostAsync(EditUserViewModel data)
         {
-            return View(data);
+            var user = _unitOfWork.User.GetUser(data.User.Id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            var userRolesInDb = await _signInManager.UserManager.GetRolesAsync(user);
+            //Loop through the roles in ViewModel
+            //Check if the Role is Assigned in DB
+            //If assigned -> do something
+            //if not assigned -> add role
+
+            //var rolesToAdd = new List<string>();
+            //var rolesToRemove = new List<string>();
+
+            foreach(var role in data.Roles)
+            {
+                var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
+                if (role.Selected)
+                {
+                    if(assignedInDb == null)
+                    {
+                        //rolesToAdd.Add(role.Text);
+                        await _signInManager.UserManager.AddToRoleAsync(user, role.Text);
+                        //Add the Role
+                    }
+                }
+                else
+                {
+                    if(assignedInDb  != null)
+                    {
+                        //rolesToRemove.Add(role.Text);
+                        await _signInManager.UserManager.RemoveFromRoleAsync(user, role.Text);
+                        //Remove the role
+                    }
+                }
+            }
+            //if (rolesToAdd.Any())
+            //{
+            //    await _signInManager.UserManager.AddToRoleAsync(user, rolesToAdd);
+            //}
+            //if (rolesToRemove.Any())
+            //{
+            //    await _signInManager.UserManager.RemoveFromRoleAsync(user, rolesToRemove);
+            //}
+
+            user.FirstNameOfUser = data.User.FirstNameOfUser;
+            user.LastNameOfUser = data.User.LastNameOfUser;
+            user.Email = data.User.Email;
+
+            _unitOfWork.User.UpdateUser(user);
+
+            return RedirectToAction("Edit", new {id = user.Id});
         }
     }
 }

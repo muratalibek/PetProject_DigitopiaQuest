@@ -17,6 +17,14 @@ namespace DigitopiaQuest.Core.Repositories
             return _digitopiaQuestContext.Users.FirstOrDefault(u => u.Id == id);
         }
 
+        public DigitopiaQuestUser UpdateUser(DigitopiaQuestUser user)
+        {
+            _digitopiaQuestContext.Update(user);
+            _digitopiaQuestContext.SaveChanges();
+
+            return user;
+        }
+
         ICollection<DigitopiaQuestUser> IUserRepository.GetUsers()
         {
             return _digitopiaQuestContext.Users.ToList();
