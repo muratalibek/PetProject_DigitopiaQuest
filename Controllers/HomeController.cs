@@ -1,4 +1,7 @@
-﻿using DigitopiaQuest.Models;
+﻿using DigitopiaQuest.Areas.Identity.Data;
+using DigitopiaQuest.Data;
+using DigitopiaQuest.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +10,18 @@ namespace DigitopiaQuest.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly UserManager<DigitopiaQuestUser> _userManager;
+        public HomeController(ILogger<HomeController> logger, UserManager<DigitopiaQuestUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
+        public async Task<IActionResult> Index()
+        {           
+            var user = await _userManager.GetUserAsync(User).ConfigureAwait(true);
+
+            return View(user);
         }
 
         public IActionResult Privacy()

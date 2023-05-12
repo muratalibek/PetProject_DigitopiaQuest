@@ -1,9 +1,12 @@
 ﻿using DigitopiaQuest.Areas.Identity.Data;
+using DigitopiaQuest.Core;
 using DigitopiaQuest.Core.Repositories;
 using DigitopiaQuest.Core.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static DigitopiaQuest.Core.Constants;
 
 namespace DigitopiaQuest.Controllers
 {
@@ -16,6 +19,7 @@ namespace DigitopiaQuest.Controllers
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
         }
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public IActionResult Index()
         {
             var users = _unitOfWork.User.GetUsers();
