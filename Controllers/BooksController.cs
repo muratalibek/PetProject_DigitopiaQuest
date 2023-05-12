@@ -56,10 +56,20 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook")] Book book)
+        public async Task<IActionResult> Create(IFormFile imageFile, [Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook, ImageOfBook")] Book book)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)// Explain!
+                {
+                    byte[] imageData;
+
+                    using (var binaryReader = new BinaryReader(imageFile.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)imageFile.Length);
+                    }
+                    book.ImageOfBook = imageData;
+                }
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -88,7 +98,7 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook")] Book book)
+        public async Task<IActionResult> Edit(int id, IFormFile imageEdit, [Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook, ImageOfBook")] Book book)
         {
             if (id != book.Id)
             {
@@ -99,6 +109,16 @@ namespace DigitopiaQuest.Controllers
             {
                 try
                 {
+                    if (imageEdit != null && imageEdit.Length > 0)
+                    {
+                        byte[] imageData;
+
+                        using (var binaryReader = new BinaryReader(imageEdit.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)imageEdit.Length);
+                        }
+                        book.ImageOfBook = imageData;
+                    }
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }
