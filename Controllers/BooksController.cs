@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DigitopiaQuest.Data;
 using DigitopiaQuest.Models;
+using Microsoft.AspNetCore.Authorization;
+using static DigitopiaQuest.Core.Constants;
+using DigitopiaQuest.Core;
 
 namespace DigitopiaQuest.Controllers
 {
@@ -46,6 +49,7 @@ namespace DigitopiaQuest.Controllers
         }
 
         // GET: Books/Create
+        [Authorize(Roles = $"{Constants.Roles.User}")]
         public IActionResult Create()
         {
             return View();
@@ -56,10 +60,21 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook")] Book book)
+        [Authorize(Roles = $"{Constants.Roles.User}")]
+        public async Task<IActionResult> Create(IFormFile imageFile, [Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook, ImageOfBook")] Book book)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)// Explain!
+                {
+                    byte[] imageData;
+
+                    using (var binaryReader = new BinaryReader(imageFile.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)imageFile.Length);
+                    }
+                    book.ImageOfBook = imageData;
+                }
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -68,6 +83,7 @@ namespace DigitopiaQuest.Controllers
         }
 
         // GET: Books/Edit/5
+        [Authorize(Roles = $"{Constants.Roles.User}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Books == null)
@@ -88,7 +104,7 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook")] Book book)
+        public async Task<IActionResult> Edit(int id, IFormFile imageEdit, [Bind("Id,NameOfBook,DescriptionOfBook,AuthorOfBook,RelieseDateOfBook,RatingOfBook, ImageOfBook")] Book book)
         {
             if (id != book.Id)
             {
@@ -99,6 +115,16 @@ namespace DigitopiaQuest.Controllers
             {
                 try
                 {
+                    if (imageEdit != null && imageEdit.Length > 0)
+                    {
+                        byte[] imageData;
+
+                        using (var binaryReader = new BinaryReader(imageEdit.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)imageEdit.Length);
+                        }
+                        book.ImageOfBook = imageData;
+                    }
                     _context.Update(book);
                     await _context.SaveChangesAsync();
                 }
@@ -139,6 +165,7 @@ namespace DigitopiaQuest.Controllers
         // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Books == null)

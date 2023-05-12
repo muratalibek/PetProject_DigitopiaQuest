@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitopiaQuest.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230410235404_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230512040935_AddImageParameters")]
+    partial class AddImageParameters
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -40,6 +40,9 @@ namespace DigitopiaQuest.Migrations
                     b.Property<string>("DescriptionOfBook")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ImageOfBook")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NameOfBook")
                         .IsRequired()
@@ -79,6 +82,9 @@ namespace DigitopiaQuest.Migrations
                     b.Property<string>("GenreOfGame")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ImageOfMovie")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("NameOfGame")
                         .IsRequired()

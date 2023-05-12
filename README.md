@@ -72,6 +72,7 @@ Front: TypeScript/JavaScript, React, Node.js, MySQL/PostgreSQL/MongoDB, Bootstra
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Movie model. :white_check_mark:
 * Create, Read, Update, and Delete (CRUD) controller and View Pages for the Game model. :white_check_mark:
 * Deployment configuration with **[SmarterASP.NET](https://www.smarterasp.net/)** . :white_check_mark:
+* Identity Login, Logout and Register configuration. :white_check_mark:
 <p>&nbsp;</p>
 
 Link: **[LinkOfProject](muratalibek-001-site1.ctempurl.com)**

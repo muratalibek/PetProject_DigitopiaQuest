@@ -41,6 +41,9 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.RatingOfBook)
         </dd>
+        <dd class="col-sm-10">
+            <img src="data:image/jpeg;base64,@(Model.ImageOfBook?.Length > 0 ? Convert.ToBase64String(Model.ImageOfBook) : "")" alt="Movie Image" style="width: 100px; height: 70px;" />
+        </dd>
     </dl>
     
     <form asp-action="Delete">
