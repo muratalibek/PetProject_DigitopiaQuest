@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DigitopiaQuest.Data;
 using DigitopiaQuest.Models;
+using Microsoft.AspNetCore.Authorization;
+using static DigitopiaQuest.Core.Constants;
+using DigitopiaQuest.Core;
 
 namespace DigitopiaQuest.Controllers
 {
@@ -46,6 +49,7 @@ namespace DigitopiaQuest.Controllers
         }
 
         // GET: Games/Create
+        [Authorize(Roles = $"{Constants.Roles.User}")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +60,7 @@ namespace DigitopiaQuest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{Constants.Roles.User}")]
         public async Task<IActionResult> Create(IFormFile imageFile, [Bind("Id,NameOfGame,DescriptionOfGame,UserScore,ReleaseDateOfGame,GenreOfGame,Developer,DevCompany,ImageOfMovie")] Game game)
         {
             if (ModelState.IsValid)
@@ -78,6 +83,7 @@ namespace DigitopiaQuest.Controllers
         }
 
         // GET: Games/Edit/5
+        [Authorize(Roles = $"{Constants.Roles.User}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Games == null)
@@ -159,6 +165,7 @@ namespace DigitopiaQuest.Controllers
         // POST: Games/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = $"{Constants.Roles.Administrator}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Games == null)
